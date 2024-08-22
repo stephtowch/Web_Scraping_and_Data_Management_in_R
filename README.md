@@ -19,7 +19,7 @@ This GitHub repository includes R code for web scraping, data wrangling, and rep
 
 The repository is organised into the following sections:
 
-- **[1.0 User Guide](/1.0_User_Guide))**: This is a procedure guide for using the `rvest` package for web scraping, `tidyverse`, `stringr` and `purrr` for some data wrangling and xml2 for parsing HTML data, as well as `DBI` for interacting with relational databases in R, `RSQLite` for implementing the `DBI` interface specifically with SQLite databases and `ggplot2` for data visualisation
+- **[1.0 User Guide](/1.0_User_Guide))**: This is a procedure guide for using the `rvest` package for web scraping, `tidyverse`, `stringr` and `purrr` for some data wrangling, xml2 for parsing HTML data, as well as `DBI` for interacting with relational databases in R, `RSQLite` for implementing the `DBI` interface specifically with SQLite databases and `ggplot2` for data visualisation
 - **[2.0 Instruction Sheet](/2.0_Instruction_Sheet)**: This is the instruction sheet for the exam that details what to web scrap and report.
 - **[3.0 Data File](3.0_Data_File)**: This is the.csv output file to review course information at the Essex Summer School including the course names, URLs and descriptions.
 
