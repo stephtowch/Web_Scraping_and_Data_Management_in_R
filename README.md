@@ -4,7 +4,7 @@
 
 <sub>*Last updated 2024-03-21.*</sub>
 
-This GitHub repository contains R code for web scraping tables from Wikipedia from four web pages, data wrangling and reporting, as part of my exam for the Web Scraping and Data Management module on the MA Social Science Data Analytics course. As well as creating a database using `SQLite` to store the data ready for analysis, as well as setting up an SQL query from R to combine the data from multiple tables to assess whether high GDP (nominal) per capita is indicative of better quality democracy. Data is scraped from the following Wikipedia sites:
+This GitHub repository includes R code for web scraping, data wrangling, and reporting, developed as part of my exam for the Web Scraping and Data Management module in the MA Social Science Data Analytics course. The project involves scraping tables from four Wikipedia web pages, processing the data, and creating a SQLite database for storage and analysis. Additionally, the repository demonstrates how to set up and execute SQL queries from R to combine data from multiple tables. The analysis focuses on evaluating whether high nominal GDP per capita correlates with better quality democracy. Data is sourced from the following Wikipedia pages:
 
 [List of countries by GDP (nominal) per capita](https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)_per_capita)
 
