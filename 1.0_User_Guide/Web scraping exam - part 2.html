@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Web Scaping and Data Management - Exam 2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Web scraping exam - part 2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Web scraping exam - part 2_files/libs/quarto-html/quarto.js"></script>
+<script src="Web scraping exam - part 2_files/libs/quarto-html/popper.min.js"></script>
+<script src="Web scraping exam - part 2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Web scraping exam - part 2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Web scraping exam - part 2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Web scraping exam - part 2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Web scraping exam - part 2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Web scraping exam - part 2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Web scraping exam - part 2_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Web Scaping and Data Management - Exam 2</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction:</h2>
+<section id="objective" class="level3">
+<h3 class="anchored" data-anchor-id="objective">Objective:</h3>
+<p>The aim of this detailed guide is to understand whether higher GDP per capita is indicative of better quality democracy. The relevant data from all countries for different democracy indices and the GDP (nominal) per capita will be scraped from the following Wikipedia websites:</p>
+<p><a href="https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)_per_capita">List of countries by GDP (nominal) per capita</a></p>
+<p><a href="https://en.wikipedia.org/w/index.php?title=V-Dem_Democracy_Indices&amp;oldid=1233003638">Democracy indices (V-Dem)</a></p>
+<p><a href="https://en.wikipedia.org/w/index.php?title=The_Economist_Democracy_Index&amp;oldid=1229762903">The Economist Democracy Index</a></p>
+<p><a href="https://en.wikipedia.org/w/index.php?title=Bertelsmann_Transformation_Index&amp;oldid=1219713517">Bertelsmann Transformation Index</a></p>
+<p>Then, a database will be created containing the relevant information from the democracy indices. Moreover, a new standardised democracy index will be created by averaging the normalised values from the different categories of each index, bringing them onto a common scale (e.g., 0 to 1). The GDP (nominal) per capita data will be added to the table without further adjustment.</p>
+<p>Finally, a plot will be produced depicting the GDP (nominal) per capita on the x-axis and the average democracy score on the y-axis. The three indicies will be differentiated on the plot using different coloured dots.</p>
+<p><strong>Please Note:</strong></p>
+<p>The analysis requires GDP (nominal) per capita data, not GDP (nominal) per country. Initially, it was assumed that the data would be sourced from the Wikipedia page titled <a href="https://en.wikipedia.org/w/index.php?title=List_of_countries_by_GDP_(nominal)&amp;oldid=1230120595">List of countries by GDP (nominal)</a>. However, this page was updated on June 20, 2024, and now only includes GDP (nominal) per country.</p>
+<p>To obtain the correct data, the information will be scraped from the Wikipedia page <a href="https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)_per_capita">List of countries by GDP (nominal) per capita</a>, which provides the relevant GDP (nominal) per capita figures.</p>
+</section>
+<section id="prerequisites" class="level3">
+<h3 class="anchored" data-anchor-id="prerequisites">Prerequisites:</h3>
+<section id="software-requirements" class="level4">
+<h4 class="anchored" data-anchor-id="software-requirements">Software Requirements</h4>
+<ul>
+<li><p>R version 4.4.1 or higher</p></li>
+<li><p>Required R packages:</p>
+<ul>
+<li>To install the required packages, use the following command: <code>install.packages(c("rvest", "tidyverse", "stringr", "pacman", "purrr", "DBI", "RSQLite", "ggplot2")</code>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="data-requirements" class="level4">
+<h4 class="anchored" data-anchor-id="data-requirements">Data Requirements</h4>
+<ul>
+<li>No specific data requirements, since this script directly scrapes the data from the URLs below.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="procedure-steps" class="level2">
+<h2 class="anchored" data-anchor-id="procedure-steps">Procedure Steps:</h2>
+<section id="step-1-load-required-libraries" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-load-required-libraries">Step 1: Load Required Libraries</h3>
+<ul>
+<li><p>Use the <code>p_load</code> function from the <code>pacman</code> package to load multiple libraries simultaneously. This includes:</p>
+<ul>
+<li><p><code>rvest</code> for web scraping.</p></li>
+<li><p><code>tidyverse</code> for comprehensive data manipulation.</p></li>
+<li><p><code>stringr</code> for string operations.</p></li>
+<li><p><code>purrr</code> for functional programming tools.</p></li>
+<li><p><code>xml2</code> for parsing XML and HTML data.</p></li>
+<li><p><code>DBI</code> for interacting with relational databases in R.</p></li>
+<li><p><code>RSQLite</code> for implementing the <code>DBI</code> interface specifically with SQLite databases.</p></li>
+<li><p><code>ggplot2</code> for data visualisation using plots.</p></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(rvest, tidyverse, stringr, purrr, xml2, DBI, RSQLite, ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="step-2-web-scraping-the-wikipedia-data" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-web-scraping-the-wikipedia-data">Step 2: Web Scraping the Wikipedia Data:</h3>
+<ul>
+<li>Request and collect the raw HTML content from the Wikipedia URLs:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Request &amp; collect raw html content from the Wikipedia URLs</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>GDP_Capita_html <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)_per_capita"</span>) <span class="co">#Data was webscraped from this </span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>VDem_html <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"https://en.wikipedia.org/w/index.php?title=V-Dem_Democracy_Indices&amp;oldid=1233003638"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>Econ_html <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"https://en.wikipedia.org/w/index.php?title=The_Economist_Democracy_Index&amp;oldid=1229762903"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Bert_html <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"https://en.wikipedia.org/w/index.php?title=Bertelsmann_Transformation_Index&amp;oldid=1219713517"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Using the <code>read_html</code> function from the <code>rvest</code> package, request and collect the raw HTML data from the following Wikipedia URLs, storing them in their associated objects: <code>GDP_Capital_html</code>, <code>VDem_html</code>, <code>Econ_html</code> and <code>Bert_html</code>.</p>
+</section>
+<section id="step-3-parse-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-parse-the-data">Step 3: Parse the Data</h3>
+<ul>
+<li>Parse the HTML content from the unstructured data sources, <code>GDP_Capita_html</code>, <code>VDem_html</code>, <code>Econ_html</code>, and <code>Bert_html</code>, to extract relevant information and transform it into a structured format. This involves identifying and selecting specific HTML tables from each source and converting them into data frames that can be easily analysed.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parse the GDP per Capita table</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>GDP_Capita_table <span class="ot">&lt;-</span> GDP_Capita_html <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">".wikitable"</span>) <span class="sc">|&gt;</span>  <span class="co"># Select the right element</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>(<span class="at">fill =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span>      <span class="co"># Parse the table, handling merged cells</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="dv">1</span>)                        <span class="co"># Extract the first table from the list</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Parse the VDem_table </span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>VDem_table <span class="ot">&lt;-</span> VDem_html <span class="sc">|&gt;</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">".wikitable"</span>) <span class="sc">|&gt;</span>  <span class="co"># Select the right element</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span>                     <span class="co"># Extract the first table from the list</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>(<span class="at">fill =</span> <span class="cn">TRUE</span>)         <span class="co"># Parse the table, handling merged cells</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Parse the Econ_table </span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>Econ_table <span class="ot">&lt;-</span> Econ_html <span class="sc">|&gt;</span> </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">".wikitable"</span>) <span class="sc">|&gt;</span> <span class="co"># select the right element</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>() <span class="sc">|&gt;</span>                <span class="co"># special function for tables</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="dv">4</span>)                       <span class="co"># extract the fourth table</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Parse the Bert_table </span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>Bert_table <span class="ot">&lt;-</span> Bert_html <span class="sc">|&gt;</span> </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">".wikitable"</span>) <span class="sc">|&gt;</span>  <span class="co"># Select the right element</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span>                     <span class="co"># Extract the first table from the list</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>(<span class="at">fill =</span> <span class="cn">TRUE</span>)         <span class="co"># Parse the table, handling merged cells</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p><strong>Identify the HTML Tables:</strong> Use the <code>html_elements</code> function from the <code>rvest</code> package to target tables identified by the <code>.wikitable</code> class in the HTML documents.</p></li>
+<li><p><strong>Parse and Handle Merged Cells:</strong> Apply the <code>html_table(fill = TRUE)</code> function to correctly parse the tables, ensuring that any merged cells are handled appropriately.</p></li>
+<li><p><strong>Extract Specific Tables:</strong> Use the <code>pluck</code> function from the <code>purrr</code> package to select the relevant table from the list of parsed tables within each HTML document.</p></li>
+<li><p><strong>Store in Data Frames:</strong> The extracted tables are stored in the following data frames:</p>
+<ul>
+<li><p><code>GDP_Capita_table</code>: Contains data parsed from <code>GDP_Capita_html</code>.</p></li>
+<li><p><code>VDem_table</code>: Contains data parsed from <code>VDem_html</code>.</p></li>
+<li><p><code>Econ_table</code>: Contains data parsed from <code>Econ_html</code>.</p></li>
+<li><p><code>Bert_table</code>: Contains data parsed from <code>Bert_html</code>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="step-4-wrangling-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-wrangling-the-data">Step 4: Wrangling the Data</h3>
+<ul>
+<li>In this step, the raw data is transformed and structured into a clean, consistent format to enhance data quality, making it more usable for analysis. The data wrangling process is applied to each table, following a systematic approach that involves renaming columns, removing unwanted rows, filtering out irrelevant data, cleaning the content, and converting data types.</li>
+</ul>
+<section id="wrangling-the-gdp_capita_table" class="level4">
+<h4 class="anchored" data-anchor-id="wrangling-the-gdp_capita_table">1. Wrangling the <code>GDP_Capita_table</code></h4>
+<ul>
+<li><p><strong>Rename Columns:</strong> Use the <code>colnames</code> function from <code>Base R</code> to provide clear, descriptive names for the columns to ensure that the data is easy to interpret.</p></li>
+<li><p><strong>Remove Unwanted Rows:</strong> The <code>slice(-1)</code> function from the <code>tidyverse</code> package removes the first row, which often contains redundant header information.</p></li>
+<li><p><strong>Filter the Data:</strong> The <code>filter</code> function from the <code>tidyverse</code> package, combined with <code>str_detect</code> from the <code>stringr</code> package, is used to exclude rows with non-numeric values in the <code>World_Bank_Estimate</code> column, specifically those marked with an em dash (<code>"—"</code>).</p></li>
+<li><p><strong>Clean the Data:</strong> The <code>mutate</code> and <code>across</code> functions from the <code>tidyverse</code> package are employed to clean the data. <code>str_remove_all</code> from the <code>stringr</code> package is used to remove em dashes, commas, and any content within brackets, ensuring that the numeric data is accurate.</p></li>
+<li><p><strong>Convert Data Types:</strong> Columns are converted to numeric and integer types using <code>mutate</code> with <code>as.numeric</code> and <code>as.integer</code> to ensure that the data is ready for analysis.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Wrangling: GDP per Capita table</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns using colnames from Base R</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(GDP_Capita_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Country_Territory"</span>, <span class="st">"IMF_Estimate"</span>, <span class="st">"IMF_Year"</span>, <span class="st">"World_Bank_Estimate"</span>, <span class="st">"World_Bank_Year"</span>, <span class="st">"UN_Estimate"</span>, <span class="st">"UN_Year"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove the first row with the unwanted headers</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>GDP_Capita_table <span class="ot">&lt;-</span> GDP_Capita_table<span class="sc">|&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="sc">-</span><span class="dv">1</span>) </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out rows with non-numeric World Bank estimates (i.e., entries with em dashes)</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>GDP_Capita_table <span class="ot">&lt;-</span> GDP_Capita_table <span class="sc">|&gt;</span> </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">str_detect</span>(World_Bank_Estimate, <span class="st">"—"</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean data by removing em dashes, commas, and content within brackets</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>GDP_Capita_table <span class="ot">&lt;-</span> GDP_Capita_table <span class="sc">|&gt;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(IMF_Estimate, IMF_Year, UN_Estimate, UN_Year), <span class="sc">~</span> <span class="fu">str_remove_all</span>(., <span class="st">"[—]"</span>))) <span class="sc">|&gt;</span> <span class="co"># Removes em dashes</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(IMF_Estimate, World_Bank_Estimate, UN_Estimate), <span class="sc">~</span> <span class="fu">str_remove_all</span>(., <span class="st">","</span>))) <span class="sc">|&gt;</span> <span class="co"># Removes commas</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(IMF_Year, World_Bank_Year, UN_Year), <span class="sc">~</span> <span class="fu">str_remove_all</span>(., <span class="st">"</span><span class="sc">\\</span><span class="st">[.*?</span><span class="sc">\\</span><span class="st">]"</span>))) <span class="co"># Removes content within brackets</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert columns to numeric and integer types for appropriate data analysis</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>GDP_Capita_table <span class="ot">&lt;-</span> GDP_Capita_table <span class="sc">%&gt;%</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">IMF_Estimate =</span> <span class="fu">as.numeric</span>(IMF_Estimate),</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">World_Bank_Estimate =</span> <span class="fu">as.numeric</span>(World_Bank_Estimate),</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">UN_Estimate =</span> <span class="fu">as.numeric</span>(UN_Estimate),</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">IMF_Year =</span> <span class="fu">as.integer</span>(IMF_Year),</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">World_Bank_Year =</span> <span class="fu">as.integer</span>(World_Bank_Year),</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">UN_Year =</span> <span class="fu">as.integer</span>(UN_Year)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="wrangling-the-vdem_table" class="level4">
+<h4 class="anchored" data-anchor-id="wrangling-the-vdem_table">2. Wrangling the <code>VDem_table</code></h4>
+<ul>
+<li><p><strong>Rename Columns:</strong> The <code>colnames</code> function is used to rename the columns for clarity, aligning with the standard naming conventions.</p></li>
+<li><p><strong>Remove Unwanted Rows:</strong> The <code>slice(-1)</code> function is used again to eliminate the first row, which is unnecessary for analysis.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Wrangling: VDem table</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns using colnames from Base R</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">colnames</span>(VDem_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"VDem_Country"</span>, <span class="st">"Democracy_Indices_Electorial"</span>, <span class="st">"Democracy_Indicies_Liberal"</span>, <span class="st">"DCI_Liberal"</span>, <span class="st">"DCI_Egalitarian"</span>, <span class="st">"DCI_Participatory"</span>, <span class="st">"DCI_Deliberative"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove the first row which is an unwanted header</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>VDem_table <span class="ot">&lt;-</span> VDem_table <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="wrangling-the-econ_table" class="level4">
+<h4 class="anchored" data-anchor-id="wrangling-the-econ_table">3. Wrangling the <code>Econ_table</code></h4>
+<ul>
+<li><strong>Rename Columns:</strong> The <code>rename</code> function from the <code>tidyverse</code> package is used to standardise column names to ensure that they are clear and consistent across the dataset.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Wrangling: Econ table </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns using rename from tidyverse</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Econ_table <span class="ot">&lt;-</span> Econ_table <span class="sc">|&gt;</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>   <span class="at">Econ_Country =</span> <span class="st">"Country"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>   <span class="at">Rank_2023 =</span> <span class="st">"2023 rank"</span>,  </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>   <span class="at">Regime_type =</span> <span class="st">"Regime type"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>   <span class="at">Year_2023 =</span> <span class="st">"2023"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>   <span class="at">Year_2022 =</span> <span class="st">"2022"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>   <span class="at">Year_2021 =</span> <span class="st">"2021"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>   <span class="at">Year_2020 =</span> <span class="st">"2020"</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>   <span class="at">Year_2019 =</span> <span class="st">"2019"</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>   <span class="at">Year_2018 =</span> <span class="st">"2018"</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>   <span class="at">Year_2017 =</span> <span class="st">"2017"</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>   <span class="at">Year_2016 =</span> <span class="st">"2016"</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>   <span class="at">Year_2015 =</span> <span class="st">"2015"</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>   <span class="at">Year_2014 =</span> <span class="st">"2014"</span>,</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>   <span class="at">Year_2013 =</span> <span class="st">"2013"</span>,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>   <span class="at">Year_2012 =</span> <span class="st">"2012"</span>,</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>   <span class="at">Year_2011 =</span> <span class="st">"2011"</span>,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>   <span class="at">Year_2010 =</span> <span class="st">"2010"</span>,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>   <span class="at">Year_2008 =</span> <span class="st">"2008"</span>,</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>   <span class="at">Year_2006 =</span> <span class="st">"2006"</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="wrangling-the-bert_table" class="level4">
+<h4 class="anchored" data-anchor-id="wrangling-the-bert_table">4. Wrangling the <code>Bert_table</code></h4>
+<ul>
+<li><p><strong>Rename Columns:</strong> Similar to the other tables, the <code>rename</code> function from the <code>tidyverse</code> package is used to provide descriptive names for each column.</p></li>
+<li><p><strong>Clean the Data:</strong> The <code>mutate</code> and <code>across</code> functions remove em dashes from relevant columns using <code>str_remove_all</code>.</p></li>
+<li><p><strong>Convert Data Types:</strong> Columns are converted to numeric and integer types using <code>mutate</code> with <code>as.numeric</code> and <code>as.integer</code> to ensure that the data is ready for analysis.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data wrangling: Bert table</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Rename columns using rename from tidyverse and clean data</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a> Bert_table <span class="ot">&lt;-</span> Bert_table  <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Bert_Country =</span> <span class="st">"Country"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Status_Index_2022 =</span> <span class="st">"Status-Index 2022"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Governance_Index_2022 =</span> <span class="st">"Governance-Index 2022"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Status_Index_2020 =</span> <span class="st">"Status-Index 2020"</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Governance_Index_2020 =</span> <span class="st">"Governance-Index 2020"</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Status_Index_2018 =</span> <span class="st">"Status-Index 2018"</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Governance_Index_2018 =</span> <span class="st">"Governance-Index 2018"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Status_Index_2016 =</span> <span class="st">"Status-Index 2016"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Governance_Index_2016 =</span> <span class="st">"Governance-Index 2016"</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(Status_Index_2018, Governance_Index_2018, Status_Index_2016, Governance_Index_2016), <span class="sc">~</span> <span class="fu">str_remove_all</span>(., <span class="st">"[-]"</span>))) <span class="co"># Removes em dashes</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert columns to numeric and integer types</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>Bert_table <span class="ot">&lt;-</span> Bert_table <span class="sc">%&gt;%</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">Status_Index_2022 =</span> <span class="fu">as.numeric</span>(Status_Index_2022),</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">Governance_Index_2022 =</span> <span class="fu">as.numeric</span>(Governance_Index_2022),</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">Status_Index_2020 =</span> <span class="fu">as.numeric</span>(Status_Index_2020),</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">Governance_Index_2020 =</span> <span class="fu">as.integer</span>(Governance_Index_2020),</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">Status_Index_2018 =</span> <span class="fu">as.integer</span>(Status_Index_2018),</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">Governance_Index_2018 =</span> <span class="fu">as.integer</span>(Governance_Index_2018),</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">Status_Index_2016 =</span> <span class="fu">as.integer</span>(Status_Index_2016),</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">Governance_Index_2016 =</span> <span class="fu">as.integer</span>(Governance_Index_2016)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This methodical approach ensures that each table is properly formatted, cleaned, and prepared for further analysis, leading to more accurate and meaningful results.</p>
+</section>
+</section>
+<section id="step-5-create-a-local-sqlite-database" class="level3">
+<h3 class="anchored" data-anchor-id="step-5-create-a-local-sqlite-database">Step 5: Create a Local SQLite Database</h3>
+<ul>
+<li><p>Create a local SQLite database, connect to it, and define tables to store the data.</p></li>
+<li><p>This process involves setting up the database connection, creating tables with specified data types, and importing data from the data frames into the database for storage and further analysis.</p></li>
+</ul>
+<section id="set-up-and-connect-to-the-sqlite-database" class="level4">
+<h4 class="anchored" data-anchor-id="set-up-and-connect-to-the-sqlite-database">1. Set Up and Connect to the SQLite Database</h4>
+<ul>
+<li><p><strong>Establish Connection:</strong> Use the <code>dbConnect</code> function from the <code>DBI</code> package to create and connect to a SQLite database. The <code>SQLite</code> function provides the driver necessary for SQLite database management.</p></li>
+<li><p><strong>Database Creation:</strong> The following code snippet creates and connects to a new SQLite database named <code>db.sql</code>:</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create and connect to a SQLite database called db</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">SQLite</span>(), <span class="st">"data/db.sql"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="create-the-gdp_capita-table-in-the-database" class="level4">
+<h4 class="anchored" data-anchor-id="create-the-gdp_capita-table-in-the-database">2. Create the <code>GDP_Capita</code> Table in the Database</h4>
+<ul>
+<li><p><strong>Define the Table Structure:</strong> Use the <code>dbExecute</code> function from the <code>DBI</code> package to create the <code>GDP_Capita</code> table within the database. The table includes columns such as <code>Country_Territory</code>, <code>IMF_Estimate</code>, <code>IMF_Year</code>, etc. Each column is assigned a specific data type:</p>
+<ul>
+<li><p><code>varchar</code>: Stores text data, such as country names.</p></li>
+<li><p><code>real</code>: Stores floating-point numbers, ideal for estimates and indices.</p></li>
+<li><p><code>integer</code>: Stores whole numbers, such as years.</p></li>
+</ul></li>
+<li><p><strong>List Existing Tables:</strong> After creating the table, use the <code>dbListTables</code> function from the <code>DBI</code> package to verify that the table was successfully added to the database.</p></li>
+<li><p><strong>Insert Data into the Table:</strong> Use the <code>dbWriteTable</code> function from the <code>DBI</code> package to insert data from the <code>GDP_Capita_table</code> data frame into the <code>GDP_Capita</code> table within the database.</p></li>
+<li><p><strong>Verify Data Import:</strong> Optionally, you can use the <code>dbReadTable</code> function to read the table and verify that the data was correctly imported. If unsatisfied with the table import, <code>dbRemoveTable</code> function can be used to remove it. Both functions are from the <code>DBI</code> package.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create GDP_Capita table in the db</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(db,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>          <span class="st">"CREATE TABLE GDP_Capita (</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="st">            Country_Territory varchar PRIMARY KEY,</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="st">            Democracy_ real,</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="st">            IMF_Estimate real,</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="st">            IMF_Year integer,</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="st">            World_Bank_Estimate real,</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="st">            World_Bank_Year integer,</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="st">            UN_Estimate real,</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="st">            UN_Year integer</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="st">          )"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#List the tables within the db database</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbListTables</span>(db)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "GDP_Capita"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write the data from GDP_Capita_table to the GDP_Capita table in the database</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(db, <span class="st">"GDP_Capita"</span>, GDP_Capita_table, <span class="at">append =</span> <span class="cn">TRUE</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify that the data was imported from GDP_Capita_Table</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#dbReadTable(conn = db, "GDP_Capita")</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#dbRemoveTable(conn = db, "GDP_Capita")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="create-the-vdem-table-in-the-database" class="level4">
+<h4 class="anchored" data-anchor-id="create-the-vdem-table-in-the-database">3. Create the <code>VDem</code> Table in the Database</h4>
+<ul>
+<li><p><strong>Table Creation:</strong> Similar to the <code>GDP_Capita</code> table, define the structure of the <code>VDem</code> table using <code>dbExecute</code>. This table stores various democracy indices.</p></li>
+<li><p><strong>Data Insertion:</strong> Insert data from the <code>VDem_table</code> data frame into the <code>VDem</code> table using the <code>dbWriteTable</code> function.</p></li>
+<li><p><strong>Verification:</strong> List the tables and verify data import if needed using the <code>dbListTables</code> and <code>dbReadTable</code> functions.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create VDem table in the db</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(db,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>          <span class="st">"CREATE TABLE VDem (</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="st">            VDem_Country varchar,</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="st">            Democracy_Indices_Electorial real,</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="st">            Democracy_Indicies_Liberal real,</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="st">            DCI_Liberal real,</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="st">            DCI_Egalitarian real,</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="st">            DCI_Participatory real,</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="st">            DCI_Deliberative real</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="st">          )"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#List the tables within the db database</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbListTables</span>(db)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "GDP_Capita" "VDem"      </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write the data from VDem_table to the VDem table in the database</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(db, <span class="st">"VDem"</span>, VDem_table, <span class="at">append =</span> <span class="cn">TRUE</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify that the data was imported from VDem_Table</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#dbReadTable(conn = db, "VDem")</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#dbRemoveTable(conn = db, "VDem")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="create-the-econ-table-in-the-database" class="level4">
+<h4 class="anchored" data-anchor-id="create-the-econ-table-in-the-database">4. Create the <code>Econ</code> Table in the Database</h4>
+<ul>
+<li><p><strong>Table Creation:</strong> Use <code>dbExecute</code> to create the <code>Econ</code> table, designed to store economic data across different years for various countries and regions.</p></li>
+<li><p><strong>Data Insertion:</strong> Insert the data from the <code>Econ_table</code> data frame into the <code>Econ</code> table in the database using the <code>dbWriteTable</code> function.</p></li>
+<li><p><strong>Verification:</strong> List the tables and verify data import if needed using the <code>dbListTables</code> and <code>dbReadTable</code> functions.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create Econ table in the db</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(db,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>          <span class="st">"CREATE TABLE Econ (</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="st">            Region varchar,</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="st">            Rank_2023 integer,</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="st">            Econ_Country varchar,</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="st">            Regime_type varchar,</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="st">            Year_2023 real,</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="st">            Year_2022 real,</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="st">            Year_2021 real,</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="st">            Year_2020 real,</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="st">            Year_2019 real,</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="st">            Year_2018 real,</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="st">            Year_2017 real,</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="st">            Year_2016 real,</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="st">            Year_2015 real,</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="st">            Year_2014 real,</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="st">            Year_2013 real,</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="st">            Year_2012 real, </span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="st">            Year_2011 real,</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="st">            Year_2010 real, </span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="st">            Year_2008 real, </span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="st">            Year_2006 real</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="st">          )"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#List the tables within the db database</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbListTables</span>(db)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Econ"       "GDP_Capita" "VDem"      </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write the data from VDem_table to the VDem table in the database</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(db, <span class="st">"Econ"</span>, Econ_table, <span class="at">append =</span> <span class="cn">TRUE</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify that the data was imported from VDem_Table</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#dbReadTable(conn = db, "Econ")</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#dbRemoveTable(conn = db, "Econ")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="create-the-bert-table-in-the-database" class="level4">
+<h4 class="anchored" data-anchor-id="create-the-bert-table-in-the-database">5. Create the <code>Bert</code> Table in the Database</h4>
+<ul>
+<li><p><strong>Table Creation:</strong> Define and create the <code>Bert</code> table using <code>dbExecute</code>. This table holds various governance and status indices.</p></li>
+<li><p><strong>Data Insertion:</strong> Insert the data from the <code>Bert_table</code> data frame into the <code>Bert</code> table in the database using the <code>dbWriteTable</code> function..</p></li>
+<li><p><strong>Verification:</strong> List the tables and verify data import if needed using the <code>dbListTables</code> and <code>dbReadTable</code> functions.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create Econ table in the db</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(db,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>          <span class="st">"CREATE TABLE Bert (</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="st">            Bert_Country varchar,</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="st">            Status_Index_2022 real,</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="st">            Governance_Index_2022 real,</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="st">            Status_Index_2020 real,</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="st">            Governance_Index_2020 real,</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="st">            Status_Index_2018 real,</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="st">            Governance_Index_2018 real,</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="st">            Status_Index_2016 real,</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="st">            Governance_Index_2016 real</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="st">          )"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#List the tables within the db database</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbListTables</span>(db)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Bert"       "Econ"       "GDP_Capita" "VDem"      </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write the data from VDem_table to the VDem table in the database</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(db, <span class="st">"Bert"</span>, Bert_table, <span class="at">append =</span> <span class="cn">TRUE</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify that the data was imported from VDem_Table</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#dbReadTable(conn = db, "Bert")</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#dbRemoveTable(conn = db, "Bert")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="step-6-write-a-query-that-combines-the-data-in-the-analysis-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="step-6-write-a-query-that-combines-the-data-in-the-analysis-dataset">Step 6: Write a query that combines the data in the analysis dataset</h3>
+<ul>
+<li><p>Write an SQL query to combine the data from multiple tables in the SQLite database (e.g., <code>GDP_Capita</code>, <code>VDem</code>, <code>Econ</code>, and <code>Bert</code>) into a single dataset for analysis called <code>Combined_table</code>. This combined dataset will allow for a comprehensive analysis of various economic, democratic, and governance indicators.</p>
+<h4 id="review-the-sql-query-structure" class="anchored">1. Review the SQL Query Structure</h4>
+<p>The SQL query is structured to select specific columns from each table and join these tables based on a <strong>primary key</strong> and <strong>foreign keys</strong>. In this case, the primary key is the <code>Country_Territory</code> column from the <code>GDP_Capita</code> table, while the foreign keys are the <code>VDem_Country</code>, <code>Econ_Country</code>, and <code>Bert_Country</code> columns in the <code>VDem</code>, <code>Econ</code>, and <code>Bert</code> tables, respectively.</p>
+<ul>
+<li><p><strong>SELECT Clause:</strong> This clause specifies the columns that will be included in the <code>Combined_table</code>. Columns from each of the four tables are selected based on their relevance to the analysis.</p></li>
+<li><p><strong>FROM Clause:</strong> The <code>GDP_Capita</code> table is used as the primary table in this query. It serves as the base table for combining the data, given that it contains the primary key <code>Country_Territory</code>.</p></li>
+<li><p><strong>LEFT JOIN Operations:</strong> The query uses <code>LEFT JOIN</code> operations to merge the tables. The <code>LEFT JOIN</code> ensures that all records from the <code>GDP_Capita</code> table are included in the combined dataset, even if there are no matching records in the other tables. The joins are structured as follows:</p>
+<ul>
+<li><p><strong>VDem Table:</strong> Joins the <code>GDP_Capita</code> table using <code>Country_Territory = VDem_Country</code> to include democracy indices.</p></li>
+<li><p><strong>Econ Table:</strong> Joins the <code>GDP_Capita</code> table using <code>Country_Territory = Econ_Country</code> to add economic data across multiple years.</p></li>
+<li><p><strong>Bert Table:</strong> Joins the <code>GDP_Capita</code> table using <code>Country_Territory = Bert_Country</code> to incorporate governance and status indices.</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">"</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT </span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="st">  GDP_Capita.Country_Territory,</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="st">  GDP_Capita.IMF_Estimate,</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="st">  GDP_Capita.IMF_Year,</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="st">  GDP_Capita.World_Bank_Estimate,</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="st">  GDP_Capita.World_Bank_Year,</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="st">  GDP_Capita.UN_Estimate,</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="st">  GDP_Capita.UN_Year,</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="st">  VDem.VDem_Country,</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="st">  VDem.Democracy_Indices_Electorial,</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="st">  VDem.Democracy_Indicies_Liberal,</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="st">  VDem.DCI_Liberal,</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="st">  VDem.DCI_Egalitarian,</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="st">  VDem.DCI_Participatory,</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="st">  VDem.DCI_Deliberative,</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Econ_Country,</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Year_2023,</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Year_2022,</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Year_2021,</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Year_2020,</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Year_2019,</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Year_2018,</span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Year_2017,</span></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Year_2016,</span></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Year_2015,</span></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Year_2014,</span></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Year_2013,</span></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Year_2012,</span></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Year_2011,</span></span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Year_2010,</span></span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Year_2008,</span></span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ.Year_2006,</span></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a><span class="st">  Bert.Bert_Country,</span></span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a><span class="st">  Bert.Status_Index_2022,</span></span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a><span class="st">  Bert.Governance_Index_2022,</span></span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a><span class="st">  Bert.Status_Index_2020,</span></span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a><span class="st">  Bert.Governance_Index_2020,</span></span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a><span class="st">  Bert.Status_Index_2018,</span></span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a><span class="st">  Bert.Governance_Index_2018,</span></span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a><span class="st">  Bert.Status_Index_2016,</span></span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a><span class="st">  Bert.Governance_Index_2016</span></span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a><span class="st">FROM </span></span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a><span class="st">  GDP_Capita</span></span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN </span></span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a><span class="st">  VDem </span></span>
+<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a><span class="st">ON </span></span>
+<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a><span class="st">  GDP_Capita.Country_Territory = VDem.VDem_Country</span></span>
+<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN </span></span>
+<span id="cb29-50"><a href="#cb29-50" aria-hidden="true" tabindex="-1"></a><span class="st">  Econ </span></span>
+<span id="cb29-51"><a href="#cb29-51" aria-hidden="true" tabindex="-1"></a><span class="st">ON </span></span>
+<span id="cb29-52"><a href="#cb29-52" aria-hidden="true" tabindex="-1"></a><span class="st">  GDP_Capita.Country_Territory = Econ.Econ_Country</span></span>
+<span id="cb29-53"><a href="#cb29-53" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN </span></span>
+<span id="cb29-54"><a href="#cb29-54" aria-hidden="true" tabindex="-1"></a><span class="st">  Bert </span></span>
+<span id="cb29-55"><a href="#cb29-55" aria-hidden="true" tabindex="-1"></a><span class="st">ON </span></span>
+<span id="cb29-56"><a href="#cb29-56" aria-hidden="true" tabindex="-1"></a><span class="st">  GDP_Capita.Country_Territory = Bert.Bert_Country</span></span>
+<span id="cb29-57"><a href="#cb29-57" aria-hidden="true" tabindex="-1"></a><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="execution-and-verification" class="level4">
+<h4 class="anchored" data-anchor-id="execution-and-verification">2. Execution and Verification</h4>
+<p>After writing the query, it is executed using the <code>dbGetQuery</code> function from the <code>DBI</code> package, which retrieves the combined data into the <code>Combined_table</code> dataframe. This dataframe can then be used for subsequent analysis.</p>
+<ul>
+<li><p><strong>Execution:</strong> Run the SQL query using the <code>dbGetQuery</code> function to generate the <code>Combined_table</code>.</p></li>
+<li><p><strong>Verification:</strong> Optionally, verify the structure and contents of <code>Combined_table</code> to ensure that the data has been correctly combined using the <code>View</code> function</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Execute the query and store the result in Combined_table</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>Combined_table <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(db, query)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional: View the first few rows of the Combined_table to verify the data</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co">#View(Combined_table)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="step-7-create-normalised-indices-for-vdem-econ-and-bert-indices" class="level3">
+<h3 class="anchored" data-anchor-id="step-7-create-normalised-indices-for-vdem-econ-and-bert-indices">Step 7: Create Normalised Indices for VDem, Econ and Bert Indices</h3>
+<ul>
+<li>Create normalised indices for the VDem, Econ, and Bert datasets.</li>
+<li>This involves calculating an average score from the various categories within each index and then normalising these scores to a standard scale (from 0, representing the lowest value, to 1, representing the highest value).</li>
+</ul>
+<p>Normalising the indices makes it easier to compare the different measures on a common scale.</p>
+<section id="calculate-the-average-vdem-score" class="level4">
+<h4 class="anchored" data-anchor-id="calculate-the-average-vdem-score">1. Calculate the Average VDem Score</h4>
+<ul>
+<li><p>To create a composite measure for VDem, the average of six different democracy-related indices is calculated.</p></li>
+<li><p>These indices include electoral democracy, liberal democracy, and four categories of the Democracy-Centred Index (DCI): Liberal, Egalitarian, Participatory, and Deliberative.</p>
+<ul>
+<li><strong>Calculation:</strong> The VDem average score is computed by summing the values of these six indices for each record and then dividing by 6 (the total number of indices).</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the average VDem score</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>Combined_table<span class="sc">$</span>Avg_VDem <span class="ot">&lt;-</span> (</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Democracy_Indices_Electorial <span class="sc">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Democracy_Indicies_Liberal <span class="sc">+</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>DCI_Liberal <span class="sc">+</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>DCI_Egalitarian <span class="sc">+</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>DCI_Participatory <span class="sc">+</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>DCI_Deliberative</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">/</span> <span class="dv">6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="normalise-the-vdem-score-0-1-scale" class="level4">
+<h4 class="anchored" data-anchor-id="normalise-the-vdem-score-0-1-scale">2. Normalise the VDem Score (0-1 Scale)</h4>
+<ul>
+<li><p>Normalisation involves rescaling the average VDem scores to fit within a 0 to 1 range. This is achieved by subtracting the minimum value of the average VDem scores from each score and then dividing by the range (i.e., the difference between the maximum and minimum values).</p></li>
+<li><p>The result is a normalized VDem score where 0 represents the lowest score and 1 represents the highest.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the normalised VDem score (0-1 scale)</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>Combined_table<span class="sc">$</span>Norm_VDem <span class="ot">&lt;-</span> (Combined_table<span class="sc">$</span>Avg_VDem <span class="sc">-</span> <span class="fu">min</span>(Combined_table<span class="sc">$</span>Avg_VDem, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">max</span>(Combined_table<span class="sc">$</span>Avg_VDem, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(Combined_table<span class="sc">$</span>Avg_VDem, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="calculate-the-average-econ-score" class="level4">
+<h4 class="anchored" data-anchor-id="calculate-the-average-econ-score">3. Calculate the Average Econ Score</h4>
+<ul>
+<li><p>For the Econ index, the average score is calculated based on economic data collected over multiple years. Specifically, the score is the average of values from 16 different years (from 2006 to 2023). This gives a composite measure of economic performance over time.</p>
+<ul>
+<li><strong>Calculation:</strong> The average Econ score is computed by summing the economic indicators for the specified years and then dividing by 16.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the average Econ score</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>Combined_table<span class="sc">$</span>Avg_Econ  <span class="ot">&lt;-</span> (</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Year_2023 <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Year_2022 <span class="sc">+</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Year_2021 <span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Year_2020 <span class="sc">+</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Year_2019 <span class="sc">+</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Year_2018 <span class="sc">+</span> </span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Year_2017 <span class="sc">+</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Year_2016 <span class="sc">+</span> </span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Year_2015 <span class="sc">+</span> </span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Year_2014 <span class="sc">+</span> </span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Year_2013 <span class="sc">+</span> </span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Year_2012 <span class="sc">+</span> </span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Year_2011 <span class="sc">+</span> </span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Year_2010 <span class="sc">+</span> </span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Year_2008 <span class="sc">+</span> </span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Year_2006  </span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>) <span class="sc">/</span> <span class="dv">16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="normalize-the-econ-score-0-1-scale" class="level4">
+<h4 class="anchored" data-anchor-id="normalize-the-econ-score-0-1-scale">4. Normalize the Econ Score (0-1 Scale)</h4>
+<ul>
+<li>As with the VDem index, the Econ scores are normalised to fit within a 0 to 1 scale. This allows for direct comparison of the Econ index with other indices.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the normalised Econ score (0-1 scale)</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>Combined_table<span class="sc">$</span>Norm_Econ  <span class="ot">&lt;-</span> (Combined_table<span class="sc">$</span>Avg_Econ <span class="sc">-</span> <span class="fu">min</span>(Combined_table<span class="sc">$</span>Avg_Econ, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">max</span>(Combined_table<span class="sc">$</span>Avg_Econ, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(Combined_table<span class="sc">$</span>Avg_Econ, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="calculate-the-average-bert-score" class="level4">
+<h4 class="anchored" data-anchor-id="calculate-the-average-bert-score">5. Calculate the Average Bert Score</h4>
+<p>The Bertelsmann Transformation Index (Bert) measures governance and status indices over different years. The average Bert score is calculated by taking the mean of eight different measures, which include Status and Governance indices from four different years (2022, 2020, 2018, and 2016).</p>
+<ul>
+<li><p><strong>Calculation:</strong> The average Bert score is computed by summing the eight indices and dividing by 8.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the average Bert score</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>Combined_table<span class="sc">$</span>Avg_Bert  <span class="ot">&lt;-</span> (</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Status_Index_2022 <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Governance_Index_2022 <span class="sc">+</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Status_Index_2020 <span class="sc">+</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Governance_Index_2020 <span class="sc">+</span> </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Status_Index_2018 <span class="sc">+</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Governance_Index_2018 <span class="sc">+</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Status_Index_2016 <span class="sc">+</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  Combined_table<span class="sc">$</span>Governance_Index_2016 </span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>) <span class="sc">/</span> <span class="dv">8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
+</section>
+<section id="normalize-the-bert-score-0-1-scale" class="level4">
+<h4 class="anchored" data-anchor-id="normalize-the-bert-score-0-1-scale">6. Normalize the Bert Score (0-1 Scale)</h4>
+<ul>
+<li>The Bert score is also normalised to a 0 to 1 scale to align it with the other indices.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the normalised Bert score (0-1 scale)</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>Combined_table<span class="sc">$</span>Norm_Bert  <span class="ot">&lt;-</span> (Combined_table<span class="sc">$</span>Avg_Bert <span class="sc">-</span> <span class="fu">min</span>(Combined_table<span class="sc">$</span>Avg_Bert, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">max</span>(Combined_table<span class="sc">$</span>Avg_Bert, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(Combined_table<span class="sc">$</span>Avg_Bert, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="remove-rows-with-missing-data-in-normalised-indices" class="level4">
+<h4 class="anchored" data-anchor-id="remove-rows-with-missing-data-in-normalised-indices">7. Remove Rows with Missing Data in Normalised Indices</h4>
+<p>Finally, any rows with missing values (<code>NA</code>) in the normalised indices (<code>Norm_VDem</code>, <code>Norm_Econ</code>, or <code>Norm_Bert</code>) are removed using the <code>drop_na</code> function. This ensures that the analysis dataset is complete and free of missing data, which could otherwise skew the results.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove rows with NA on Normalised indices</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>Combined_table <span class="ot">&lt;-</span> Combined_table <span class="sc">|&gt;</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Norm_VDem)<span class="sc">|&gt;</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Norm_Econ)<span class="sc">|&gt;</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Norm_Bert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="step-8-plot-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="step-8-plot-the-data">Step 8: Plot the Data</h3>
+<section id="objective-1" class="level4">
+<h4 class="anchored" data-anchor-id="objective-1">Objective:</h4>
+<ul>
+<li><p>Create a scatter plot to visualise the relationship between GDP per capita and the average democracy score. The plot should:</p></li>
+<li><p>Display GDP per capita on the x-axis.</p></li>
+<li><p>Show the average democracy score on the y-axis.</p></li>
+<li><p>Differentiate between the three indices (<code>Norm_VDem</code>, <code>Norm_Econ</code>, and <code>Norm_Bert</code>) using distinct colours for each index.</p></li>
+</ul>
+</section>
+<section id="transform-data-with-pivot_longer" class="level4">
+<h4 class="anchored" data-anchor-id="transform-data-with-pivot_longer">1. Transform Data with <code>pivot_longer</code>:</h4>
+<ul>
+<li>To effectively compare the indices, reshape the data into a long format using the <code>pivot_longer</code> function from the <code>tidyverse</code> package. This transformation allows for easy differentiation between indices in the plot (<code>Norm_VDem</code> , <code>Norm_Econ</code> and <code>Norm_Bert</code>).</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the Combined_table from wide to long format</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  Combined_table,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">c</span>(Norm_VDem, Norm_Econ, Norm_Bert),</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">"Index"</span>,</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">"Score"</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p><code>cols = c(Norm_VDem, Norm_Econ, Norm_Bert)</code>: Specifies the columns to be transformed from wide format to long format. These columns contain the normalised scores for each index.</p></li>
+<li><p><code>names_to = "Index"</code>: Creates a new column named <code>Index</code> that will hold the names of the original columns (i.e., <code>Norm_VDem</code>, <code>Norm_Econ</code> and <code>Norm_Bert</code>).</p></li>
+<li><p><code>values_to = "Score"</code>: Creates a new column named <code>Score</code> that contains the values from the specified columns. This column will represent the average democracy scores for each index.</p></li>
+</ul>
+</section>
+<section id="plotting-the-data" class="level4">
+<h4 class="anchored" data-anchor-id="plotting-the-data">2. Plotting the data:</h4>
+<p>Use <code>ggplot</code> from the <code>ggplot2</code> package to create the scatter plot to visualise the relationship between GDP per capita and the average democracy score across the three indices: <code>Norm_VDem</code>, <code>Norm_Econ</code>, and <code>Norm_Bert</code>. The data is sourced from the <code>plot_data</code> object, which is nowin a long format to facilitate colour coding by index type:</p>
+<p><strong>Please Note:</strong> GDP per capita is represented by using estimates from the World Bank. This choice is based on the assumption that no average of GDP per capita estimates from multiple sources (IMF, World Bank, UN) are required.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> World_Bank_Estimate, <span class="at">y =</span> Score, <span class="at">color =</span> Index)) <span class="sc">+</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"GDP per Capita vs. Average Democracy Score"</span>,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"GDP per Capita (World Bank Estimate)"</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Democracy Score"</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Index"</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Web-scraping-exam---part-2_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li><p><code>aes(x = World_Bank_Estimate, y = Score, color = Index)</code>: Maps GDP per capita to the x-axis, average democracy score to the y-axis, and differentiates data points by the <code>Index</code> column using colour.</p></li>
+<li><p><code>geom_point()</code>: Adds scatter plot points to visualise the data.</p></li>
+<li><p><code>labs()</code>: Sets the title and axis labels, and provides a legend for the color coding.</p></li>
+<li><p><code>theme_minimal()</code>: Applies a clean and minimal theme to the plot, ensuring that the focus remains on the data.</p></li>
+</ul>
+</section>
+<section id="outcome" class="level4">
+<h4 class="anchored" data-anchor-id="outcome">Outcome:</h4>
+<p>The resulting scatter plot illustrates how different democracy indices relate to GDP per capita. By using distinct colours for each index, the plot provides a clear and organised view of how the average democracy scores (across the V-Democracy Index, Economist Democracy Index, and Bertelsmann Transformation Index) vary with GDP per capita, revealing any patterns or relationships between these variables.</p>
+</section>
+<section id="result" class="level4">
+<h4 class="anchored" data-anchor-id="result">Result:</h4>
+<p>Based on the plot, the results show a general trend where countries with a higher GDP per capita also tend to have higher democracy scores. However, this relationship is not perfectly linear or universal. Here are a few observations:</p>
+<ol type="1">
+<li><p><strong>Clustered Data:</strong> Many data points are clustered in the lower GDP per capita range (0 - 25,000 USD). Within this range, there is a wide variation in democracy scores, indicating that countries with similar GDP per capita can have very different levels of democracy.</p></li>
+<li><p><strong>High Democracy Scores at Higher GDP</strong>: As GDP per capita increases, especially beyond 25,000 USD, the democracy scores tend to be higher (closer to 1.0). This suggests that wealthier countries are more likely to have higher-quality democracies.</p></li>
+<li><p><strong>Outliers</strong>: There are a few outliers where countries with higher GDP per capita have lower democracy scores. Similarly, some countries with lower GDP per capita have relatively high democracy scores.</p></li>
+<li><p><strong>Different Indices</strong>: The plot depicts data points from different indices (Norm_Bert, Norm_Econ, Norm_VDem), all indicating a similar pattern of increasing democracy scores with higher GDP per capita, though with slight variations between them.</p></li>
+</ol>
+<p>Thus, while higher GDP per capita seems to be associated with better democracy quality on average, the plot also indicates variation and exceptions to this trend. Therefore, while GDP per capita is an indicator, it may not be the sole determinant of democracy quality. Further analysis, including univariate outlier detection and linear regression analysis may be required to more accurately assess the significance of this relationship.</p>
+</section>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion:</h2>
+<p>This guide outlines a thorough approach to collecting, processing, and analysing data from multiple sources. The process begins with extracting data from Wikipedia using web scraping, followed by parsing and structuring the data into a manageable format. The use of an SQLite database facilitates organised storage and efficient querying of the combined datasets. Normalising the indices ensures consistency across different measures, allowfiling for accurate comparison. Finally, visualising the relationship between GDP per capita and various democracy indices through a scatter plot reveals insightful patterns and correlations. This approach demonstrates a structured approach for data integration and analysis, ultimately providing a clearer understanding of the interplay between economic and democratic indicators.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
